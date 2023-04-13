@@ -1,0 +1,38 @@
+name: publish-model
+
+on:
+  push:
+    branches:
+        - main
+    paths:
+        - model/svm.mlem
+
+jobs:
+  publish-model:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout 
+        uses: actions/checkout@v2
+
+      - name: Environment setup
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+      
+      - name: Setup flyctl
+        uses: superfly/flyctl-actions/setup-flyctl@master
+      
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Download model
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: dvc pull model/svm -r read-write
+
+      - name: Deploy model
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+        run: mlem deployment run flyio svm-app --model model/svm
