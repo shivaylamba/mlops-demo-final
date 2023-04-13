@@ -2,10 +2,6 @@
 <h1 align="center">
 CI/CD for Machine Learning Models
  </h3>
-  
-[![View on Medium](https://img.shields.io/badge/Medium-View%20on%20Medium-blue?logo=medium)](https://towardsdatascience.com/build-reliable-machine-learning-pipelines-with-continuous-integration-ea822eb09bf6?sk=ae3326395e0c5bb219523a1c2014b1be) [![View on YouTube](https://img.shields.io/badge/YouTube-Watch%20on%20Youtube-red?logo=youtube)]([https://www.youtube.com/channel/UCNMawpMow-lW5d2svGhOEbw](https://youtu.be/rkg09nNMAhs)) 
-
-Sample project for [Build Reliable Machine Learning Pipelines with Continuous Integration](https://towardsdatascience.com/build-reliable-machine-learning-pipelines-with-continuous-integration-ea822eb09bf6?sk=ae3326395e0c5bb219523a1c2014b1be).
 
 </div> 
   
@@ -48,7 +44,7 @@ To try out this project, first start with creating a new repository using the te
 
 Clone the project to your local machine:
 ```bash
-git clone https://github.com/your-username/cicd-mlops-demo
+git clone https://github.com/your-username/mlops-demo-final
 ```
 
 Set up the environment:
