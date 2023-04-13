@@ -1,0 +1,9 @@
+[core]
+    autostage = true
+    remote = datastore
+['remote "read"']
+    url = https://winequality-red.s3.amazonaws.com/
+['remote "read-write"']
+    url = s3://darkhorse-ar-card/
+['remote "datastore"']
+    url = s3://darkhorse-static-data
