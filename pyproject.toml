@@ -1,0 +1,31 @@
+[tool.ruff]
+# black 
+line-length = 79
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+]
+# flake8
+ignore = ["E501"]
+select = ["B","C","E","F","W","B9"]
+
+[tool.ruff.mccabe]
+max-complexity = 10

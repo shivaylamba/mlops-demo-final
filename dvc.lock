@@ -1,0 +1,87 @@
+schema: '2.0'
+stages:
+  process:
+    cmd: python src/process_data.py
+    deps:
+    - path: data/raw
+      md5: 84a0e37242f885ea418b9953761d35de.dir
+      size: 84199
+      nfiles: 2
+    - path: src/process_data.py
+      md5: 996ccb3e0f024a915417f77a58ad9cde
+      size: 1237
+    params:
+      params.yaml:
+        data:
+          raw: data/raw/winequality-red.csv
+          intermediate: data/intermediate
+        process:
+          feature: quality
+          test_size: 0.2
+    outs:
+    - path: data/intermediate
+      md5: 3377ebd11434a04b64fe3ca5cb3cc455.dir
+      size: 194875
+      nfiles: 4
+  train:
+    cmd: python src/train.py
+    deps:
+    - path: data/intermediate
+      md5: 3377ebd11434a04b64fe3ca5cb3cc455.dir
+      size: 194875
+      nfiles: 4
+    - path: src/train.py
+      md5: 9c7de68b1bdc5dae97e849818a7bc1d2
+      size: 1652
+    params:
+      params.yaml:
+        data:
+          raw: data/raw/winequality-red.csv
+          intermediate: data/intermediate
+        model: model/svm
+        train:
+          hyperparameters:
+            svm__kernel:
+            - linear
+            svm__C:
+            - 0.1
+            - 1
+            - 10
+            svm__gamma:
+            - 0.1
+            - 1
+            - 10
+          grid_search:
+            cv: 2
+            scoring: accuracy
+            verbose: 3
+    outs:
+    - path: model/svm
+      md5: ba0c50b412f6b5d5c5bd6c0ef163b1a1
+      size: 148163
+    - path: model/svm.mlem
+      md5: 3e7f2947de87d4500fb0dff8c1311555
+      size: 1263
+  evaluate:
+    cmd: python src/evaluate.py
+    deps:
+    - path: data/intermediate
+      md5: 3377ebd11434a04b64fe3ca5cb3cc455.dir
+      size: 194875
+      nfiles: 4
+    - path: model/svm
+      md5: ba0c50b412f6b5d5c5bd6c0ef163b1a1
+      size: 148163
+    - path: src/evaluate.py
+      md5: 912aac9c6e00b70858f1d47bd16e51a0
+      size: 803
+    params:
+      params.yaml:
+        data:
+          raw: data/raw/winequality-red.csv
+          intermediate: data/intermediate
+        model: model/svm
+    outs:
+    - path: dvclive/metrics.json
+      md5: d71ae0196bba8e553dbad618e306517b
+      size: 28
